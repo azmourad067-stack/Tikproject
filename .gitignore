@@ -1,0 +1,4 @@
+__pycache__/
+production/.cache_tex.npy
+episodes/.*.wav
+*.pyc
