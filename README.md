@@ -9,6 +9,7 @@ Chaîne TikTok internationale sans dialogue : **NUBO**, une créature en feutrin
 | [`NUBO_BIBLE.md`](./NUBO_BIBLE.md) | Stratégie complète : 5 concepts évalués, identité, formule des vidéos, prompts IA, croissance, tests |
 | [`episodes/`](./episodes) | **Les 10 premiers épisodes prêts à publier** (MP4 1080×1920 + vignettes) |
 | [`episodes/PUBLICATION.md`](./episodes/PUBLICATION.md) | Kit de publication : calendrier, légendes emoji, hashtags, couvertures, commentaires épinglés |
+| [`realiste/`](./realiste) | **Pack version ultra-réaliste** : 65 plans avec prompts image + mouvement, images-guides, bandes-son prêtes ([`PROMPTS.md`](./realiste/PROMPTS.md)) |
 | [`production/`](./production) | Le studio : moteur d'animation « feutrine stop-motion » + synthétiseur audio + 1 script par épisode |
 
 ## 🎬 Les 10 épisodes
