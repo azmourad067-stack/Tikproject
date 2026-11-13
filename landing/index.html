@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Réplique – Coach de séduction IA</title>
+<meta name="description" content="Réplique t'aide à répondre sur les apps de rencontre : 3 suggestions en français, drôles ou directes, sans phrases de dragueur lourd. Inscris-toi à la liste d'attente.">
+<meta property="og:title" content="Réplique – Coach de séduction IA en français">
+<meta property="og:description" content="Plus jamais de conversation qui tombe à plat. Liste d'attente ouverte.">
+<style>
+  :root {
+    --bg: #fffaf7;
+    --surface: #ffffff;
+    --text: #1d1a1f;
+    --muted: #5f5866;
+    --accent: #e0405e;
+    --accent-text: #ffffff;
+    --bubble-them: #efeaf2;
+    --bubble-me: #e0405e;
+    --bubble-ai: #fff1d6;
+    --bubble-ai-border: #f0c46b;
+    --border: #e7e1ea;
+    --ok: #1d7a46;
+    --err: #b3261e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141216;
+      --surface: #1e1b21;
+      --text: #f4f0f6;
+      --muted: #b3abb9;
+      --accent: #ff5c7a;
+      --accent-text: #1a0d10;
+      --bubble-them: #2c2831;
+      --bubble-me: #ff5c7a;
+      --bubble-ai: #3a3020;
+      --bubble-ai-border: #8a6a2a;
+      --border: #332e38;
+      --ok: #6fd39b;
+      --err: #ff8a80;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141216; --surface: #1e1b21; --text: #f4f0f6; --muted: #b3abb9;
+    --accent: #ff5c7a; --accent-text: #1a0d10; --bubble-them: #2c2831; --bubble-me: #ff5c7a;
+    --bubble-ai: #3a3020; --bubble-ai-border: #8a6a2a; --border: #332e38; --ok: #6fd39b; --err: #ff8a80;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 16px; }
+  header { padding: 20px 0; display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-weight: 800; font-size: 1.3rem; letter-spacing: -0.02em; }
+  .logo span { color: var(--accent); }
+  .hero { display: grid; gap: 32px; padding: 24px 0 48px; align-items: center; }
+  @media (min-width: 820px) { .hero { grid-template-columns: 1.1fr 0.9fr; padding-top: 48px; } }
+  h1 { font-size: clamp(2rem, 6vw, 3.2rem); line-height: 1.1; margin: 0 0 16px; letter-spacing: -0.03em; }
+  h1 em { font-style: normal; color: var(--accent); }
+  .lead { color: var(--muted); font-size: 1.1rem; margin: 0 0 24px; }
+  .phone {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 28px;
+    padding: 20px 16px; max-width: 360px; margin: 0 auto; width: 100%;
+    box-shadow: 0 20px 50px rgba(0,0,0,.08);
+  }
+  .bubble { padding: 10px 14px; border-radius: 18px; margin: 6px 0; max-width: 85%; width: fit-content; font-size: .95rem; }
+  .them { background: var(--bubble-them); }
+  .me { background: var(--bubble-me); color: var(--accent-text); margin-left: auto; }
+  .ai-label { font-size: .78rem; font-weight: 700; color: var(--muted); margin: 14px 0 4px; text-transform: uppercase; letter-spacing: .06em; }
+  .ai { background: var(--bubble-ai); border: 1px dashed var(--bubble-ai-border); margin-left: auto; }
+  .why { font-size: .8rem; color: var(--muted); text-align: right; margin: 2px 4px 0; }
+  form { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 20px; }
+  label { display: block; font-weight: 600; margin: 0 0 6px; font-size: .95rem; }
+  input[type=email], select {
+    width: 100%; padding: 12px 14px; font-size: 1rem; border-radius: 12px;
+    border: 1px solid var(--border); background: var(--bg); color: var(--text); margin-bottom: 14px;
+  }
+  .check { display: flex; gap: 10px; align-items: flex-start; font-size: .85rem; color: var(--muted); margin-bottom: 16px; }
+  .check input { margin-top: 4px; }
+  button {
+    width: 100%; padding: 14px; font-size: 1.05rem; font-weight: 700; border: 0; border-radius: 12px;
+    background: var(--accent); color: var(--accent-text); cursor: pointer;
+  }
+  button:disabled { opacity: .6; cursor: wait; }
+  .msg { margin-top: 12px; font-size: .95rem; min-height: 1.4em; }
+  .msg.ok { color: var(--ok); } .msg.err { color: var(--err); }
+  section { padding: 40px 0; border-top: 1px solid var(--border); }
+  h2 { font-size: 1.6rem; margin: 0 0 20px; letter-spacing: -0.02em; }
+  .grid { display: grid; gap: 16px; }
+  @media (min-width: 720px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 18px; }
+  .card h3 { margin: 0 0 6px; font-size: 1.05rem; }
+  .card p { margin: 0; color: var(--muted); font-size: .95rem; }
+  details { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; }
+  summary { font-weight: 600; cursor: pointer; }
+  details p { color: var(--muted); margin: 10px 0 0; }
+  footer { padding: 32px 0 48px; color: var(--muted); font-size: .85rem; border-top: 1px solid var(--border); }
+  footer a { color: inherit; }
+  .small { font-size: .8rem; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">Ré<span>plique</span></div>
+    <a href="#inscription" class="small">Liste d'attente →</a>
+  </header>
+
+  <div class="hero">
+    <div>
+      <h1>Plus jamais de conversation qui <em>tombe à plat</em>.</h1>
+      <p class="lead">Réplique est un coach de séduction IA <strong>en français</strong>. Importe ta conversation et reçois 3 réponses drôles, directes ou douces, qui te ressemblent. Sans phrases de dragueur lourd.</p>
+
+      <form id="inscription" novalidate>
+        <label for="email">Ton email</label>
+        <input id="email" name="email" type="email" autocomplete="email" placeholder="toi@exemple.fr" required>
+
+        <label for="app">Tu utilises surtout… <span class="small">(facultatif)</span></label>
+        <select id="app" name="app">
+          <option value="">—</option>
+          <option>Tinder</option><option>Hinge</option><option>Bumble</option>
+          <option>Fruitz</option><option>happn</option><option>Autre</option>
+        </select>
+
+        <div class="check">
+          <input id="consent" name="consent" type="checkbox" required>
+          <label for="consent" style="font-weight:400;margin:0">J'accepte de recevoir un email au lancement de Réplique. Je peux me désinscrire à tout moment. <a href="confidentialite.html">Politique de confidentialité</a>.</label>
+        </div>
+        <!-- Champ piège anti-robot : laisser vide -->
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit" id="submit">Rejoindre la liste d'attente</button>
+        <p class="msg" id="msg" role="status" aria-live="polite"></p>
+        <p class="small">Réservé aux 18 ans et plus.</p>
+      </form>
+    </div>
+
+    <div class="phone" aria-label="Exemple de suggestion (conversation fictive)">
+      <div class="bubble me">Salut ça va ?</div>
+      <div class="bubble them">oui et toi</div>
+      <div class="bubble me">oui</div>
+      <div class="ai-label">✨ Suggestion Réplique</div>
+      <div class="bubble ai">Bon. On vient d'avoir la conversation la plus plate de 2026. On se rattrape : pizza ananas, crime ou génie ?</div>
+      <div class="why">Pourquoi ça marche : autodérision + question facile et clivante</div>
+      <div class="bubble them" style="margin-top:12px">CRIME. On ne peut pas être amis 😂</div>
+      <p class="small" style="text-align:center;margin:14px 0 0">Conversation fictive</p>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>Comment ça marche</h2>
+    <div class="grid">
+      <div class="card"><h3>1. Importe ta conv'</h3><p>Une capture d'écran suffit. Le texte est lu sur ton téléphone et les prénoms sont masqués avant tout envoi.</p></div>
+      <div class="card"><h3>2. Choisis ton ton</h3><p>Drôle, direct ou doux. 3 propositions, chacune avec une explication pour progresser.</p></div>
+      <div class="card"><h3>3. Envoie, à ta façon</h3><p>Ce sont des suggestions : adapte-les. Le but, c'est d'être toi, en plus à l'aise.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Questions fréquentes</h2>
+    <details><summary>C'est disponible quand ?</summary><p>Réplique est en cours de développement, d'abord sur iPhone. Les inscrits sont prévenus en premier.</p></details>
+    <details><summary>Mes conversations sont-elles stockées ?</summary><p>Non. L'app est conçue pour ne rien conserver : le texte est envoyé à un service d'IA pour générer les suggestions, puis oublié. Ton consentement te sera demandé avant tout envoi.</p></details>
+    <details><summary>C'est pour apprendre à manipuler ?</summary><p>Non. Réplique t'aide à être plus drôle et plus à l'aise, jamais à insister ou à mettre la pression. Un « non » reste un « non ».</p></details>
+    <details><summary>Combien ça coûte ?</summary><p>Le prix n'est pas encore fixé. Il y aura un essai gratuit.</p></details>
+  </div>
+</section>
+
+<div class="wrap">
+  <footer>
+    <p>© 2026 Réplique · <a href="confidentialite.html">Confidentialité</a> · Réplique n'est affiliée à aucune application de rencontre.</p>
+    <!-- TODO avant mise en ligne : ajouter les mentions légales (éditeur, hébergeur) -->
+  </footer>
+</div>
+
+<script>
+  // À configurer : URL du formulaire Formspree (https://formspree.io/f/XXXXXXX).
+  // Voir landing/README.md.
+  const FORM_ENDPOINT = "";
+
+  const form = document.getElementById("inscription");
+  const msg = document.getElementById("msg");
+  const btn = document.getElementById("submit");
+
+  function show(text, kind) { msg.textContent = text; msg.className = "msg " + kind; }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = form.email.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return show("Cet email ne semble pas valide.", "err");
+    if (!form.consent.checked) return show("Coche la case de consentement pour t'inscrire.", "err");
+    if (!FORM_ENDPOINT) return show("Formulaire pas encore branché (FORM_ENDPOINT vide).", "err");
+
+    btn.disabled = true;
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: { "Accept": "application/json" },
+        body: new FormData(form),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      form.reset();
+      show("C'est noté ! Tu seras prévenu·e au lancement. 🎉", "ok");
+    } catch {
+      show("Oups, l'inscription a échoué. Réessaie dans un instant.", "err");
+    } finally {
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>

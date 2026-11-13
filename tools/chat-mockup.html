@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Générateur de conversation</title>
+<style>
+  :root {
+    --bg: #f3f0f5; --panel: #ffffff; --text: #1d1a1f; --muted: #6a6370; --border: #ddd6e2;
+    --screen: #ffffff; --them: #ecebf0; --me: #e0405e; --me-text: #fff; --ai: #fff1d6; --ai-border: #f0c46b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #121014; --panel: #1d1a20; --text: #f2eef4; --muted: #aaa2b0; --border: #34303a;
+      --screen: #0b0a0c; --them: #26232b; --me: #ff5c7a; --me-text: #1a0d10; --ai: #3a3020; --ai-border: #8a6a2a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #121014; --panel: #1d1a20; --text: #f2eef4; --muted: #aaa2b0; --border: #34303a;
+    --screen: #0b0a0c; --them: #26232b; --me: #ff5c7a; --me-text: #1a0d10; --ai: #3a3020; --ai-border: #8a6a2a;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .layout { display: grid; gap: 20px; padding: 16px; max-width: 1100px; margin: 0 auto; }
+  @media (min-width: 860px) { .layout { grid-template-columns: 1fr 400px; align-items: start; } }
+  .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }
+  h1 { font-size: 1.2rem; margin: 0 0 8px; }
+  p.help { color: var(--muted); margin: 0 0 12px; font-size: .9rem; }
+  code { background: var(--bg); padding: 1px 5px; border-radius: 5px; }
+  select, input, textarea { width: 100%; font: inherit; padding: 9px 11px; border-radius: 9px; border: 1px solid var(--border); background: var(--bg); color: var(--text); margin-bottom: 10px; }
+  textarea { min-height: 260px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88rem; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .row > * { flex: 1 1 140px; }
+  label { font-size: .85rem; font-weight: 600; display: block; margin-bottom: 4px; }
+  /* Écran 9:16 à capturer */
+  .screen {
+    width: 100%; max-width: 400px; aspect-ratio: 9 / 16; margin: 0 auto;
+    background: var(--screen); border-radius: 24px; border: 1px solid var(--border);
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  .top { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: center; }
+  .avatar { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, #c9b6d9, #f2b3c0); flex: none; }
+  .name { font-weight: 700; }
+  .hook { padding: 14px 16px 0; font-weight: 800; font-size: 1.25rem; line-height: 1.2; text-align: center; }
+  .msgs { padding: 14px; display: flex; flex-direction: column; gap: 6px; flex: 1; justify-content: center; }
+  .b { padding: 9px 13px; border-radius: 18px; max-width: 82%; width: fit-content; font-size: .98rem; line-height: 1.35; word-wrap: break-word; }
+  .them { background: var(--them); }
+  .me { background: var(--me); color: var(--me-text); margin-left: auto; }
+  .ai { background: var(--ai); border: 1px dashed var(--ai-border); margin-left: auto; }
+  .ailabel { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 10px 0 0 auto; }
+  .meta { font-size: .75rem; color: var(--muted); text-align: right; }
+  .center { font-size: .75rem; color: var(--muted); text-align: center; }
+  .foot { padding: 8px; text-align: center; font-size: .7rem; color: var(--muted); }
+  button { width: 100%; padding: 11px; font: inherit; font-weight: 700; border: 0; border-radius: 10px; background: var(--me); color: var(--me-text); cursor: pointer; }
+  body.capture .panel { display: none; }
+  body.capture .layout { padding: 0; max-width: none; }
+  body.capture .screen { max-width: none; width: 100vw; height: 100vh; height: 100dvh; aspect-ratio: auto; border-radius: 0; border: 0; }
+  body.capture .msgs { font-size: 1.08rem; }
+</style>
+</head>
+<body>
+<div class="layout">
+  <div class="panel">
+    <h1>Générateur de captures de conversation (fictives)</h1>
+    <p class="help">Choisis un script ou écris le tien, puis fais une capture de l'écran de droite (sur téléphone : ouvre cette page et fais une capture d'écran). Une ligne par message, avec un préfixe :
+      <code>elle:</code> / <code>il:</code> (le match), <code>moi:</code>, <code>ia:</code> (suggestion), <code>info:</code> (texte gris centré, ex. « Vu »).</p>
+    <div class="row">
+      <div><label for="preset">Script</label><select id="preset"></select></div>
+      <div><label for="name">Prénom affiché</label><input id="name" value="Camille"></div>
+    </div>
+    <label for="hook">Accroche (en haut de l'écran)</label>
+    <input id="hook">
+    <label for="src">Conversation</label>
+    <textarea id="src"></textarea>
+    <div class="row">
+      <div><label for="theme">Thème</label>
+        <select id="theme"><option value="">Auto</option><option value="light">Clair</option><option value="dark">Sombre</option></select></div>
+      <div><label for="fict">Mention « fictive »</label>
+        <select id="fict"><option value="1">Afficher</option><option value="0">Masquer</option></select></div>
+    </div>
+    <button id="cap" type="button">Mode capture (plein écran) – touche l'écran pour revenir</button>
+  </div>
+
+  <div>
+    <div class="screen" id="screen">
+      <div class="top"><div class="avatar"></div><div class="name" id="outName"></div></div>
+      <div class="hook" id="outHook"></div>
+      <div class="msgs" id="outMsgs"></div>
+      <div class="foot" id="outFoot">Conversation fictive</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const PRESETS = {
+  "1 – Le « ça va et toi » infini": ["Ta conv' est en train de mourir 💀",
+    "moi: Salut ça va ?\nelle: oui et toi\nmoi: oui\nia: Bon. On vient officiellement d'avoir la conversation la plus plate de 2026. Je propose qu'on se rattrape : pizza ananas, crime ou génie ?\nelle: CRIME. On ne peut pas être amis 😂"],
+  "2 – Le « haha » sec": ["Quand elle répond juste « haha »…",
+    "moi: J'ai fait un gâteau ce week-end, il ressemblait à un volcan\nelle: haha\nia: Je sens un « haha » de politesse. Je te laisse une seconde chance de rire pour de vrai : il a aussi pris feu.\nelle: Ok là j'ai ri pour de vrai 😭"],
+  "3 – Le « Salut » tout court": ["Tu commences encore par « Salut » ?",
+    "moi: Salut\ninfo: Vu\nia: Question sérieuse : tu fais partie des gens qui disent « c'est bientôt le sommet » alors qu'il reste 2 heures de montée ?\nelle: JE SUIS CETTE PERSONNE 😂 Comment tu sais"],
+  "4 – Conv' morte depuis 3 jours": ["Relancer sans être gênant 👇",
+    "elle: Je regarde une série de cuisine là\nmoi: Laquelle ?\ninfo: 3 jours plus tard…\nia: J'en déduis que tu es partie ouvrir un restaurant. Je réserve une table pour quand ?\nelle: Désolée j'ai disparu 🙈 et non, toujours pas de resto…"],
+  "5 – « Tu fais quoi dans la vie »": ["La question la plus ennuyeuse des apps",
+    "elle: Tu fais quoi dans la vie ?\nia: Officiellement comptable. Officieusement, je cherche encore la meilleure boulangerie de la ville. Toi tu fais quoi, à part juger les gens sur leur boulangerie ?\nelle: Ok j'ai un top 3 boulangeries, prépare-toi"],
+  "9 – Proposer un date": ["Proposer un date sans faire flipper",
+    "elle: … et c'est comme ça que j'ai fini par adorer les expos photo\nmoi: J'adore\nia: Il y a une expo photo samedi à côté du canal. Ça te dirait d'y passer une heure ? Et si c'est nul, on se rattrape avec un café.\nelle: Avec plaisir ! Samedi c'est parfait 😊"],
+  "10 – Blague ratée": ["J'ai fait une blague qui n'a pas marché…",
+    "moi: Tu sais pourquoi les plongeurs plongent en arrière ?\nelle: …\nia: Je viens de relire ma blague et je présente mes excuses officielles au monde entier. Pour me faire pardonner : raconte-moi la pire blague que tu connais, je promets de rire.\nelle: Ok j'en ai une encore PIRE 😂"],
+  "11 – « Pas dispo cette semaine »": ["Elle n'est pas dispo, tu réponds quoi ?",
+    "elle: Cette semaine c'est compliqué pour moi 😕\nia: Aucun souci ! Fais-moi signe quand ça se libère, l'expo sera encore là (et moi aussi).\ninfo: Pas d'insistance = respect"],
+  "12 – Un « non » clair": ["Comment réagir à un « non »",
+    "elle: Je préfère qu'on en reste là, désolée\nia: Merci pour ta franchise, c'est rare et appréciable. Bonne continuation !\ninfo: Classe > insistance. Toujours."],
+  "13 – Le chat Mochi": ["Quand elle parle de son chat depuis 10 messages",
+    "elle: Et là Mochi a fait tomber TOUS mes verres\nia: Je pense que Mochi teste ta patience pour voir si tu mérites mieux. Question cruciale : je dois lui apporter des croquettes pour être accepté ?\nelle: Elle accepte uniquement les pots-de-vin au saumon 🐟"],
+  "14 – Le vocal de 2 min": ["Un vocal de 2 min, tu réponds quoi ?",
+    "elle: 🎤 Message vocal (2:04)\nia: Je viens d'écouter ton podcast. 5 étoiles. Je m'abonne pour l'épisode 2 : qu'est-ce qui s'est passé ensuite avec ta coloc ?"],
+  "17 – Les 3 tons": ["Même message, 3 tons différents",
+    "elle: Je pars à Lisbonne ce week-end !\nia: 😂 Rapporte-moi un pastel de nata, sinon je considère ça comme une trahison.\nia: 😎 Génial ! Tu me raconteras au retour, autour d'un verre ?\nia: 🌹 Profite bien ! J'adorerais voir tes photos du coucher de soleil sur le Tage."],
+  "Vide (écrire le mien)": ["", "moi: \nelle: \nia: "]
+};
+
+const $ = (id) => document.getElementById(id);
+const preset = $("preset");
+for (const k of Object.keys(PRESETS)) preset.add(new Option(k, k));
+
+function load(k) { const [hook, src] = PRESETS[k]; $("hook").value = hook; $("src").value = src; render(); }
+
+function render() {
+  $("outName").textContent = $("name").value;
+  $("outHook").textContent = $("hook").value;
+  $("outHook").style.display = $("hook").value.trim() ? "" : "none";
+  $("outFoot").style.display = $("fict").value === "1" ? "" : "none";
+  const box = $("outMsgs");
+  box.replaceChildren();
+  let lastWasAi = false;
+  for (const raw of $("src").value.split("\n")) {
+    const m = raw.match(/^\s*(elle|il|moi|ia|info)\s*:\s*(.*)$/i);
+    if (!m || !m[2].trim()) continue;
+    const who = m[1].toLowerCase(), text = m[2].trim();
+    if (who === "ia" && !lastWasAi) {
+      const l = document.createElement("div"); l.className = "ailabel"; l.textContent = "✨ Suggestion IA"; box.append(l);
+    }
+    lastWasAi = who === "ia";
+    const d = document.createElement("div");
+    d.className = who === "info" ? "center" : "b " + ({ elle: "them", il: "them", moi: "me", ia: "ai" })[who];
+    d.textContent = text;
+    box.append(d);
+  }
+}
+
+preset.addEventListener("change", () => load(preset.value));
+for (const id of ["name", "hook", "src", "fict"]) $(id).addEventListener("input", render);
+$("theme").addEventListener("change", () => {
+  const v = $("theme").value;
+  if (v) document.documentElement.setAttribute("data-theme", v); else document.documentElement.removeAttribute("data-theme");
+});
+$("cap").addEventListener("click", () => { document.body.classList.add("capture"); window.scrollTo(0, 0); });
+$("screen").addEventListener("click", () => document.body.classList.remove("capture"));
+load(preset.value);
+</script>
+</body>
+</html>
