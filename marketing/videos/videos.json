@@ -1,0 +1,81 @@
+[
+  { "id": "01-ca-va-et-toi", "name": "Camille", "hook": "Ta conv' est en train de mourir 💀",
+    "steps": [["me","Salut ça va ?"],["them","oui et toi"],["me","oui"],["ai","Bon. On vient officiellement d'avoir la conversation la plus plate de 2026. Je propose qu'on se rattrape : pizza ananas, crime ou génie ?"],["them","CRIME. On ne peut pas être amis 😂"]],
+    "caption": "Tout le monde a déjà eu cette conv' 😭 (conversation fictive) #tinder #hinge #drague #conseilsdrague #celibataire" },
+
+  { "id": "02-haha-sec", "name": "Inès", "hook": "Quand elle répond juste « haha »…",
+    "steps": [["me","J'ai fait un gâteau ce week-end, il ressemblait à un volcan"],["them","haha"],["ai","Je sens un « haha » de politesse. Je te laisse une seconde chance de rire pour de vrai : il a aussi pris feu."],["them","Ok là j'ai ri pour de vrai 😭"]],
+    "caption": "Le « haha » sec, ce n'est pas une fin. (conversation fictive) #drague #tinder #humour" },
+
+  { "id": "03-salut-tout-court", "name": "Léa", "hook": "Tu commences encore tes convs par « Salut » ?",
+    "steps": [["me","Salut"],["info","Vu"],["label","Version IA, avec juste son profil (elle aime la rando) :"],["ai","Question sérieuse : tu fais partie des gens qui disent « c'est bientôt le sommet » alors qu'il reste 2 heures de montée ?"],["them","JE SUIS CETTE PERSONNE 😂 Comment tu sais"]],
+    "caption": "Une accroche liée au profil > « Salut ». (conversation fictive) #hinge #randonnee #drague" },
+
+  { "id": "04-relance-3-jours", "name": "Sarah", "hook": "Relancer une conv' morte depuis 3 jours 👇",
+    "steps": [["them","Je regarde une série de cuisine là"],["me","Laquelle ?"],["info","3 jours plus tard…"],["ai","J'en déduis que tu es partie ouvrir un restaurant. Je réserve une table pour quand ?"],["them","Désolée j'ai disparu 🙈 et non, toujours pas de resto…"]],
+    "caption": "La relance avec humour > « Tu m'as oublié ? » (conversation fictive) #relance #drague #celibataire" },
+
+  { "id": "05-tu-fais-quoi", "name": "Jade", "hook": "La question la plus ennuyeuse des apps de rencontre",
+    "steps": [["them","Tu fais quoi dans la vie ?"],["label","Réponse classique : « Je suis comptable. » Version IA :"],["ai","Officiellement comptable. Officieusement, je cherche encore la meilleure boulangerie de la ville. Toi tu fais quoi, à part juger les gens sur leur boulangerie ?"],["them","Ok j'ai un top 3 boulangeries, prépare-toi"]],
+    "caption": "Ton métier n'est pas ta personnalité. (conversation fictive) #drague #hinge #conseils" },
+
+  { "id": "06-bio-avant-apres", "hook": "J'ai demandé à une IA de réécrire une bio Tinder",
+    "steps": [["card","❌ AVANT","28 ans. J'aime les voyages, le sport et les sorties entre amis."],["card","✅ APRÈS","28 ans. 14 pays visités, 0 valise faite sans oublier une chaussette. Je cherche quelqu'un qui me battra au padel, ou qui fera semblant."],["info","Laquelle tu swipes ? 👇"]],
+    "caption": "« J'aime les voyages », tout le monde l'a. #bio #tinder #profil #conseilsdrague" },
+
+  { "id": "07-prompt-hinge", "hook": "Le prompt Hinge que 90 % des gens ratent",
+    "steps": [["card","❌ AVANT","Ma petite habitude bizarre : je mange les frites avec une fourchette"],["card","✅ APRÈS","Ma petite habitude bizarre : je note chaque croissant que je mange sur 20. Le record est 17,5. Il est tenu par une boulangerie de Lyon et j'attends un challenger."],["info","Le détail précis donne envie de répondre."]],
+    "caption": "Un prompt Hinge, c'est une perche tendue. #hinge #prompt #profil" },
+
+  { "id": "08-premiers-messages-notes", "hook": "3 premiers messages notés par une IA",
+    "steps": [["card","2/10","« Hey 😊 »"],["card","4/10","« Tu es très jolie »"],["card","9/10","« Ta photo au ski : tu es team piste noire ou team chocolat chaud au chalet ? »"],["info","Parle de son profil, pas de son physique."]],
+    "caption": "Le compliment physique, c'est 4/10 au mieux. #drague #tinder #accroche" },
+
+  { "id": "09-proposer-un-date", "name": "Chloé", "hook": "Proposer un date (sans faire flipper)",
+    "steps": [["them","… et c'est comme ça que j'ai fini par adorer les expos photo"],["me","J'adore"],["ai","Il y a une expo photo samedi à côté du canal. Ça te dirait d'y passer une heure ? Et si c'est nul, on se rattrape avec un café."],["them","Avec plaisir ! Samedi c'est parfait 😊"]],
+    "caption": "Proposition concrète + porte de sortie facile = zéro pression. (conversation fictive) #premierdate #drague" },
+
+  { "id": "10-blague-ratee", "name": "Manon", "hook": "J'ai fait une blague qui n'a pas marché…",
+    "steps": [["me","Tu sais pourquoi les plongeurs plongent en arrière ?"],["them","…"],["ai","Je viens de relire ma blague et je présente mes excuses officielles au monde entier. Pour me faire pardonner : raconte-moi la pire blague que tu connais, je promets de rire."],["them","Ok j'en ai une encore PIRE 😂"]],
+    "caption": "Assumer une blague ratée, c'est déjà drôle. (conversation fictive) #humour #drague" },
+
+  { "id": "11-pas-dispo", "name": "Emma", "hook": "Elle n'est pas dispo cette semaine. Tu réponds quoi ?",
+    "steps": [["me","Un verre jeudi ?"],["them","Cette semaine c'est compliqué pour moi 😕"],["ai","Aucun souci ! Fais-moi signe quand ça se libère, l'expo sera encore là (et moi aussi)."],["info","Pas d'insistance = du respect. Et ça marche mieux."]],
+    "caption": "La pression n'a jamais séduit personne. (conversation fictive) #respect #drague #conseils" },
+
+  { "id": "12-un-non-clair", "name": "Lucie", "hook": "Comment réagir à un « non » (le vrai test)",
+    "steps": [["them","Je préfère qu'on en reste là, désolée"],["ai","Merci pour ta franchise, c'est rare et appréciable. Bonne continuation !"],["info","Classe > insistance. Toujours."]],
+    "caption": "Un non est un non. Un coach qui t'apprend à insister est un mauvais coach. (conversation fictive) #respect #consentement #drague" },
+
+  { "id": "13-le-chat-mochi", "name": "Alice", "hook": "Quand elle parle de son chat depuis 10 messages",
+    "steps": [["them","Et là Mochi a fait tomber TOUS mes verres"],["ai","Je pense que Mochi teste ta patience pour voir si tu mérites mieux. Question cruciale : je dois lui apporter des croquettes pour être accepté ?"],["them","Elle accepte uniquement les pots-de-vin au saumon 🐟"]],
+    "caption": "Intéresse-toi à ce qu'elle aime vraiment. (conversation fictive) #chat #drague #humour" },
+
+  { "id": "14-vocal-2-minutes", "name": "Nina", "hook": "Elle t'envoie un vocal de 2 min. Tu réponds quoi ?",
+    "steps": [["them","🎤 Message vocal (2:04)"],["ai","Je viens d'écouter ton podcast. 5 étoiles. Je m'abonne pour l'épisode 2 : qu'est-ce qui s'est passé ensuite avec ta coloc ?"],["them","Ahah l'épisode 2 est encore pire, accroche-toi"]],
+    "caption": "Rebondir sur un détail, c'est montrer que tu as écouté. (conversation fictive) #vocal #drague" },
+
+  { "id": "15-envoie-ta-conv", "name": "Clara", "hook": "Envoie-moi ta pire conv', l'IA te sauve 🛟",
+    "steps": [["me","Coucou"],["them","coucou"],["me","Tu fais quoi ?"],["them","rien"],["info","👇 Commente ta situation, je réponds en vidéo"]],
+    "caption": "Je réponds aux meilleures demain 👇 (conversation fictive) #drague #aide #tinder" },
+
+  { "id": "16-reponse-commentaire", "name": "Julie", "hook": "« Il m'a répondu ‹ ok › à ma blague » 😭",
+    "steps": [["me","Pourquoi les canards ont des plumes ? Pour couvrir leur derrière 🦆"],["them","ok"],["ai","« Ok » ? Je vais prendre ça comme un « c'était tellement drôle que j'ai perdu mes mots ». Je retente ma chance avec une meilleure, prépare-toi."],["them","Mdr vas-y je t'écoute"]],
+    "caption": "Réponse à votre commentaire 💬 Envoie la tienne ! (conversation fictive) #reponse #drague" },
+
+  { "id": "17-trois-tons", "name": "Zoé", "hook": "Même message, 3 tons différents",
+    "steps": [["them","Je pars à Lisbonne ce week-end !"],["ai","😂 Rapporte-moi un pastel de nata, sinon je considère ça comme une trahison."],["ai","😎 Génial ! Tu me raconteras au retour, autour d'un verre ?"],["ai","🌹 Profite bien ! J'adorerais voir tes photos du coucher de soleil sur le Tage."],["info","Tu choisis lequel ? 👇"]],
+    "caption": "Le bon message dépend de toi et d'elle. (conversation fictive) #lisbonne #drague" },
+
+  { "id": "18-trois-erreurs", "hook": "3 erreurs qui tuent tes conversations",
+    "steps": [["card","1","Que des questions fermées (oui / non)"],["card","2","Parler de son physique"],["card","3","Attendre 3 jours « pour pas paraître trop intéressé »"],["info","Laquelle tu fais ? 👇"]],
+    "caption": "Sois honnête 👀 #conseilsdrague #celibataire #tinder" },
+
+  { "id": "19-regle-des-2-details", "hook": "L'astuce la plus simple pour une bonne accroche",
+    "steps": [["card","La règle","Prends 2 détails de son profil et relie-les."],["card","Son profil","📷 Photo avec un chien  +  « Fan de cuisine italienne »"],["card","L'accroche","« Ton chien a déjà goûté à tes pâtes, ou tu gardes ça pour les grandes occasions ? »"]],
+    "caption": "Gratuit, efficace. Essaie ce soir. #astuce #drague #hinge" },
+
+  { "id": "20-teaser-app", "name": "Camille", "hook": "J'ai créé une IA qui t'aide à répondre sur les apps de rencontre",
+    "steps": [["them","oui et toi"],["ai","😂 Bon. On vient d'avoir la conversation la plus plate de 2026. Pizza ananas : crime ou génie ?"],["ai","😎 Ça va bien ! Raconte-moi le meilleur moment de ta semaine."],["ai","🌹 Très bien, merci ! Ta photo au bord du lac m'a donné envie de vacances. C'était où ?"],["info","En français. Sans phrases de dragueur lourd."]],
+    "caption": "Coach de séduction IA, en français 🇫🇷 Liste d'attente en bio. #ia #drague #app" }
+]
