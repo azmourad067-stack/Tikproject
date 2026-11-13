@@ -1,0 +1,4 @@
+node_modules/
+eval/results-*.md
+.env
+.env.local
